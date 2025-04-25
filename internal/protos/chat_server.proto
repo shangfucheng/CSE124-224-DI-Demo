@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package chat_server;
+option go_package = "chat_server/internal/protos/pb;pb";
+
+service ChatService {
+  rpc Join (JoinRequest) returns (stream Message) {} // stream of messages
+  rpc SendMessage (Message) returns (Ack) {}
+}
+
+message JoinRequest {
+  string username = 1;
+}
+
+message Message {
+  string username = 1;
+  string content = 2;
+  int64 timestamp = 3;
+}
+
+message Ack {
+  bool success = 1;
+}
